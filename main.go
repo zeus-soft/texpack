@@ -8,11 +8,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/adinfinit/texpack/debugdraw"
-	"github.com/adinfinit/texpack/maxrect"
-	"github.com/adinfinit/texpack/pack"
-	"github.com/adinfinit/texpack/sdf"
-	"github.com/adinfinit/texpack/walk"
+	"./debugdraw"
+	"./maxrect"
+	"./pack"
+	"./sdf"
+	"./walk"
+	"./model"
 
 	"image/color"
 	"image/gif"
@@ -126,8 +127,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	atlas := &Atlas{}
-	atlas.Frames = make(map[string]Frame)
+	atlas := &model.Atlas{}
+	atlas.Frames = make(map[string]model.Frame)
 	atlas.Meta.App = "texpack"
 	atlas.Meta.Version = "1.0"
 	atlas.Meta.Image = *atlasimage
@@ -135,27 +136,27 @@ func main() {
 	atlas.Meta.Size.Width = size.X
 	atlas.Meta.Size.Height = size.Y
 	for _, m := range images {
-		frame := Frame{
+		frame := model.Frame{
 			Name:    m.Name,
 			Rotated: m.Rotated,
 			// Trimmed: m.Trimmed,
-			Frame: Rect{
+			Frame: model.Rect{
 				X:      m.Place.Min.X,
 				Y:      m.Place.Min.Y,
 				Width:  m.Place.Max.X - m.Place.Min.X,
 				Height: m.Place.Max.Y - m.Place.Min.Y,
 			},
-			SpriteSourceSize: Rect{
+			SpriteSourceSize: model.Rect{
 				X:      0,
 				Y:      0,
 				Width:  m.Place.Max.X - m.Place.Min.X,
 				Height: m.Place.Max.Y - m.Place.Min.Y,
 			},
-			SourceSize: Size{
+			SourceSize: model.Size{
 				Width:  m.Place.Max.X - m.Place.Min.X,
 				Height: m.Place.Max.Y - m.Place.Min.Y,
 			},
-			Pivot: Point{0.5, 0.5},
+			Pivot: model.Point{0.5, 0.5},
 		}
 		atlas.Frames[frame.Name] = frame
 	}

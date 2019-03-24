@@ -2,7 +2,7 @@
 *.o
 *.a
 *.so
-
+.idea/
 # Folders
 _obj
 _test
@@ -29,3 +29,4 @@ _testmain.go
 *.framework
 *.aar
 *.apk
+example/custom/2/
